@@ -33,7 +33,7 @@ function Map() {
         {Mapdata.map((path) => (
           <path 
           className="cursor-pointer hover:fill-red-700 fill-zinc-900" 
-          key={path.id} 
+          key={path.ko} 
           d={path.d} 
           onMouseEnter={() => handleMouseEnter(path.ko)}
           onMouseLeave={handleMouseLeave}
@@ -41,22 +41,24 @@ function Map() {
         ))}
       </svg>
       {/* md일땐 이거로 */}
-      <div className=" w-[350px] block md:hidden">
+      <div className="w-full md:w-[450px] p-2 block md:hidden">
         {Mapdata.map((path) => (
-          <Badge variant="outline" className="cursor-pointer" key={path.id}>{path.ko}</Badge>
+          <Badge variant="outline" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-zinc-700" key={path.d}>
+            {path.ko}
+          </Badge>
         ))}
       </div>
 
-      <div className="w-[350px] h-[500px]">
-      <div className="hidden md:block h-10">
-        {hoveredText && (
-            <h2 className="text-red-700 font-bold text-2xl">
-              {hoveredText}
-            </h2>
-          )}
-      </div>
-      <div className="w-[350px] h-[460px] shadow-md  rounded-md overscroll-y-auto flex flex-col pt-4 pl-2 pr-2 gap-2">
-        <Card className="bg-red-300 flex flex-col justify-end pt-6 ">
+      <div className="w-full md:w-[450px] h-[500px]">
+        <div className="hidden md:block h-10">
+          {hoveredText && (
+              <h2 className="text-red-700 font-bold text-2xl">
+                {hoveredText}
+              </h2>
+            )}
+        </div>
+      <div className="w-full md:w-[450px] h-[460px] shadow-md dark:border-[1px] dark:border-zinc-500 rounded-md overscroll-y-auto flex flex-col pt-4 pl-2 pr-2 gap-2">
+        <Card className="bg-gradient-to-r from-red-500 to-red-300 shadow-md hover:translate-y-[1px] hover:translate-x-[1px] ease-linear duration-75 transition-all cursor-pointer flex flex-col justify-end pt-6 ">
           <CardContent className="grid gap-6">
             <div className="flex items-center justify-between space-x-4">
               <div className="flex items-center space-x-4">

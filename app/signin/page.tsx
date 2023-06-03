@@ -1,7 +1,6 @@
 "use client";
 
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FcGoogle } from 'react-icons/fc'
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation';
@@ -19,6 +18,8 @@ import { Icons } from "@/components/icons"
 
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from "axios";
+// import getCurrentUser from "../actions/getCurrentUser";
+
 type FormData = {
   name: string;
   email: string;
@@ -26,16 +27,23 @@ type FormData = {
   password2: string;
 };
 
-export default function IndexPage() {
+export default async function IndexPage() {
+  const router = useRouter();
+
+  // const currentUser = await getCurrentUser();
+
+  // useEffect(() => {
+  //   if(currentUser?.email){
+  //     router.push('/')
+  //   }
+  // },[])
+
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-
-  const router = useRouter();
-
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     setIsLoading(true);
@@ -141,7 +149,7 @@ export default function IndexPage() {
               <Input
                 id="password2"
                 type="password"
-                placeholder="비밀번호는 6글자 이상 10글자 이하로 부탁드려용"
+                placeholder="위에 비밀번호랑 맞춰주세요"
                 {...register("password2", {
                   required: "비밀번호2를 입력해주세요",
                   minLength: { value: 6, message: "비밀번호는 최소 6글자 이상입니다" },

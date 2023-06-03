@@ -36,7 +36,7 @@ export const authOptions: AuthOptions = {
         });
 
         if (!user || !user?.hashedPassword) {
-          throw new Error('계정을 확인해주세요');
+          throw new Error('존재하지 않는 이메일입니다.');
         }
 
         const isCorrectPassword = await bcrypt.compare(
