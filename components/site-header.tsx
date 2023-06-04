@@ -12,7 +12,6 @@ interface NavbarProps {
 
 export function SiteHeader({ currentUser }: NavbarProps) {
   const pathname = usePathname();
-
   useEffect(() => {
     if(pathname === "/signin" || pathname === "/login"){
       if(currentUser?.email){

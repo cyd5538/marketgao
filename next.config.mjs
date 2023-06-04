@@ -4,6 +4,11 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: [
+      "search.pstatic.net"
+    ]
+  }
 }
 
 export default nextConfig

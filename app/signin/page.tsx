@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+import { useRouter } from "next/navigation"
 import { FcGoogle } from 'react-icons/fc'
 import { Button } from "@/components/ui/button"
-import { useRouter } from 'next/navigation';
 import {
   Card,
   CardContent,
@@ -15,10 +18,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/icons"
-
-import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from "axios";
-// import getCurrentUser from "../actions/getCurrentUser";
 
 type FormData = {
   name: string;
@@ -27,17 +27,8 @@ type FormData = {
   password2: string;
 };
 
-export default async function IndexPage() {
-  const router = useRouter();
-
-  // const currentUser = await getCurrentUser();
-
-  // useEffect(() => {
-  //   if(currentUser?.email){
-  //     router.push('/')
-  //   }
-  // },[])
-
+export default function IndexPage() {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,

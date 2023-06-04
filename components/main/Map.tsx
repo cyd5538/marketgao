@@ -1,20 +1,30 @@
 "use client";
 
 import { useState } from "react";
-
+import { useQuery } from "@tanstack/react-query";
 import Mapdata from "./Mapdata"
-import {AiTwotoneHeart} from 'react-icons/ai'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import axios from "axios";
+import Cards from "./Card";
+import { PostType } from "@/type";
+
+const Posts = async () => {
+  const response = await axios.get(`/api/post/`)
+  return response.data
+}
 
 function Map() {
   const [hoveredText, setHoveredText] = useState("");
 
-  const handleMouseEnter = (text:string) => {
+
+  const { data, error, isLoading } = useQuery<PostType[]>({
+    queryFn: Posts,
+    queryKey: ["posts"],
+  })
+  if (error) return <div>error</div>
+  if (isLoading) return <div>Loading...</div>
+
+  const handleMouseEnter = (text: string) => {
     setHoveredText(text);
   };
 
@@ -31,12 +41,12 @@ function Map() {
         viewBox="0 0 524 631"
       >
         {Mapdata.map((path) => (
-          <path 
-          className="cursor-pointer hover:fill-red-700 fill-zinc-900" 
-          key={path.ko} 
-          d={path.d} 
-          onMouseEnter={() => handleMouseEnter(path.ko)}
-          onMouseLeave={handleMouseLeave}
+          <path
+            className="cursor-pointer hover:fill-red-700 fill-zinc-900 hover:stroke-slate-300 transition-all"
+            key={path.ko}
+            d={path.d}
+            onMouseEnter={() => handleMouseEnter(path.ko)}
+            onMouseLeave={handleMouseLeave}
           ></path>
         ))}
       </svg>
@@ -52,39 +62,33 @@ function Map() {
       <div className="w-full md:w-[450px] h-[500px]">
         <div className="hidden md:block h-10">
           {hoveredText && (
-              <h2 className="text-red-700 font-bold text-2xl">
-                {hoveredText}
-              </h2>
-            )}
+            <h2 className="text-red-700 font-bold text-2xl">
+              {hoveredText}
+            </h2>
+          )}
         </div>
-      <div className="w-full md:w-[450px] h-[460px] shadow-md dark:border-[1px] dark:border-zinc-500 rounded-md overscroll-y-auto flex flex-col pt-4 pl-2 pr-2 gap-2">
-        <Card className="bg-gradient-to-r from-red-500 to-red-300 shadow-md hover:translate-y-[1px] hover:translate-x-[1px] ease-linear duration-75 transition-all cursor-pointer flex flex-col justify-end pt-6 ">
-          <CardContent className="grid gap-6">
-            <div className="flex items-center justify-between space-x-4">
-              <div className="flex items-center space-x-4">
-                <Avatar>
-                  <AvatarImage src="/avatars/01.png" />
-                  <AvatarFallback>OM</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="text-sm font-medium leading-none">Sofia Davis</p>
-                  <p className="text-sm text-muted-foreground">m@example.com</p>
-                  <div className="text-sm text-muted-foreground flex gap-2">
-                    <Badge variant="secondary" className="cursor-pointer">태그</Badge>
-                    <Badge variant="secondary" className="cursor-pointer">태그</Badge>
-                    <Badge variant="secondary" className="cursor-pointer">태그</Badge>
-                  </div>
-                </div>
-              </div>
-              <div className="curor-pointer">
-                <AiTwotoneHeart size={25} fill="#ff2402"/>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="w-full overflow-y-auto md:w-[450px] h-[460px] shadow-md dark:border-[1px] dark:border-zinc-500 rounded-md overscroll-y-auto flex flex-col pt-4 pl-2 pr-2 gap-2">
+          {data?.map((post) => (
+            <Cards
+              key={post.id}
+              title={post.title}
+              localName={post.localName}
+              koreanName={post.koreanName}
+              latitude={post.latitude}
+              longitude={post.longitude}
+              address={post.address}
+              description={post.description}
+              phoneNumber={post.phoneNumber}
+              mainImage={post.mainImage}
+              subImages={post.subImages}
+              link={post.link}
+              menu={post.menu}
+              comments={post.comments}
+            />
+          ))}
+        </div>
       </div>
-    </div>
- 
+
     </div>
   )
 }
