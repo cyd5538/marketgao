@@ -12,7 +12,7 @@ const MarketImage:React.FC<MarketImageProps> = ({image}) => {
     <Carousel loop>
       {image.map((src: string) => {
         return (
-          <div className="relative h-96 md:h-[600px] flex-[0_0_100%]" key={src}>
+          <div className="relative h-96 md:h-[500px] flex-[0_0_100%]" key={src}>
             <Image src={src} fill className="object-cover" alt="alt" />
           </div>
         );
