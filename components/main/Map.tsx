@@ -71,6 +71,7 @@ function Map() {
           {data?.map((post) => (
             <Cards
               key={post.id}
+              id={post.id}
               title={post.title}
               localName={post.localName}
               koreanName={post.koreanName}
