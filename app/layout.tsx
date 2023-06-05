@@ -10,14 +10,15 @@ import { ThemeProvider } from "@/components/theme-provider"
 import getCurrentUser from "./actions/getCurrentUser"
 import QueryWrapper from "@/components/QueryWrapper"
 import Footer from "@/components/footer"
+import Script from 'next/script';
 
-
-
-interface RootLayoutProps {
+interface RootLayoutProps {s
   children: React.ReactNode
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
+
+  const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_API_KEY}&autoload=false`;
 
   const currentUser = await getCurrentUser();
   return (
@@ -31,6 +32,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               fontSans.variable
             )}
           >
+            <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <div className="relative flex min-h-screen flex-col">
                 <SiteHeader currentUser={currentUser} />

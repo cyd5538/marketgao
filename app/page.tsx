@@ -1,11 +1,12 @@
 
-import Map from "@/components/main/Map";
-import { DropdownMenuDemo } from "../components/NavDropbar";
+import Home from "@/components/main/Map";
 
 export default function IndexPage() {
+
+
   return (
     <div>
-      <Map />
+      <Home />
     </div>
   )
 }

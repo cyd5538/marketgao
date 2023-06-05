@@ -63,7 +63,7 @@ const Cards:React.FC<CardsProps> = ({
               <p className="text-sm text-gray-700 dark:text-gray-300">{address}</p>
               <p className="text-sm mb-2 underline">{description}</p>
               <div className="text-sm text-muted-foreground flex flex-wrap gap-2">
-                {menu.map((a) => <Badge variant="secondary" className="cursor-pointer">{a}</Badge>)}
+                {menu.map((a) => <Badge variant="secondary" className="cursor-pointer" key={a}>{a}</Badge>)}
               </div>
             </div>
           </div>

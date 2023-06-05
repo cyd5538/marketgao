@@ -13,7 +13,7 @@ const Posts = async () => {
   return response.data
 }
 
-function Map() {
+function Home() {
   const [hoveredText, setHoveredText] = useState("");
 
 
@@ -94,4 +94,4 @@ function Map() {
   )
 }
 
-export default Map
+export default Home

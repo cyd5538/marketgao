@@ -21,7 +21,7 @@ const MarketYoutube:React.FC<MarketYoubeProps> = ({link}) => {
   };
 
   return (
-    <div className="m-auto w-full flex justify-center">
+    <div className="m-auto w-full flex justify-center mt-10">
       <YouTube videoId={link} opts={opts} onReady={onPlayerReady} />;
     </div>
   )
