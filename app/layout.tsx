@@ -12,7 +12,7 @@ import QueryWrapper from "@/components/QueryWrapper"
 import Footer from "@/components/footer"
 import Script from 'next/script';
 
-interface RootLayoutProps {s
+interface RootLayoutProps {
   children: React.ReactNode
 }
 

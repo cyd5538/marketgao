@@ -55,8 +55,15 @@ const Cards:React.FC<CardsProps> = ({
       <CardContent className="grid gap-6">
         <div className="flex items-center justify-between space-x-4">
           <div className="flex items-center space-x-4">
-            <div className='rounded-full'>
-              <Image src={mainImage} alt={title} width={150} height={150} className='object-cover'/>
+            <div>
+              <div className='relative h-[120px] w-[120px] object-cover overflow-hidden'>
+                <Image 
+                  src={mainImage} 
+                  alt={title}
+                  fill
+                  className='object-contain'
+                />
+              </div>
             </div>
             <div className='flex flex-col gap-[1px]'>
               <p className="text-md font-bold leading-none">{title}</p>

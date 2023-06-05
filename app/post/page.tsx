@@ -36,7 +36,7 @@ export default function IndexPage() {
       mainImage,
       link,
       subImages : subImages.map((a) => a.name),
-      menus : menus.map((a) => a.name)
+      menu : menus.map((a) => a.name)
     }),
     {
       onError: (error) => {

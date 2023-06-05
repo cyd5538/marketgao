@@ -1,5 +1,5 @@
 
-import Home from "@/components/main/Map";
+import Home from "@/components/main/Home";
 
 export default function IndexPage() {
 

@@ -16,7 +16,6 @@ const Posts = async () => {
 function Home() {
   const [hoveredText, setHoveredText] = useState("");
 
-
   const { data, error, isLoading } = useQuery<PostType[]>({
     queryFn: Posts,
     queryKey: ["posts"],
