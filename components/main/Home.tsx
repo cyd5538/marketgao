@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import axios from "axios";
 import Cards from "./Card";
 import { PostType } from "@/type";
+import { Button } from "@/components/ui/button"
 
 const Posts = async () => {
   const response = await axios.get(`/api/post/`)
@@ -15,6 +16,9 @@ const Posts = async () => {
 
 function Home() {
   const [hoveredText, setHoveredText] = useState("");
+  const [selectedPath, setSelectedPath] = useState("");
+  const [isSelected, setIsSelected] = useState(false);
+  const [filteredData, setFilteredData] = useState<PostType[]>([]);
 
   const { data, error, isLoading } = useQuery<PostType[]>({
     queryFn: Posts,
@@ -23,16 +27,29 @@ function Home() {
   if (error) return <div>error</div>
   if (isLoading) return <div>Loading...</div>
 
-  const handleMouseEnter = (text: string) => {
-    setHoveredText(text);
+
+  const handlePathClick = (pathName: string) => {
+    setSelectedPath(pathName);
+    setHoveredText(pathName);
+
+    if (!pathName) {
+      setFilteredData(data || []);
+      setIsSelected(false)
+    } else {
+      setIsSelected(true)
+      const filtered = data?.filter((item) => item.koreanName === pathName) || [];
+      setFilteredData(filtered);
+    }
   };
 
-  const handleMouseLeave = () => {
+  const allContents = () => {
+    setIsSelected(false)
+    setSelectedPath("");
     setHoveredText("");
-  };
+  }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-full pt-2 md:flex-row">
+    <div className="flex flex-col justify-center items-center h-screen w-full pb-20 pt-2 md:flex-row">
       <svg
         className="hidden md:block"
         style={{ width: "500px", height: "500px" }}
@@ -41,51 +58,111 @@ function Home() {
       >
         {Mapdata.map((path) => (
           <path
-            className="cursor-pointer hover:fill-red-700 fill-zinc-900 hover:stroke-slate-300 transition-all"
+            className={`cursor-pointer ${selectedPath === path.ko ? 'fill-red-700' : 'fill-zinc-900'
+              } hover:stroke-slate-300 transition-all`}
             key={path.ko}
             d={path.d}
-            onMouseEnter={() => handleMouseEnter(path.ko)}
-            onMouseLeave={handleMouseLeave}
+            onClick={() => handlePathClick(path.ko)}
           ></path>
         ))}
       </svg>
+
       {/* md일땐 이거로 */}
-      <div className="w-full md:w-[450px] p-2 block md:hidden">
-        {Mapdata.map((path) => (
-          <Badge variant="outline" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-zinc-700" key={path.d}>
-            {path.ko}
-          </Badge>
-        ))}
+      <div className="w-full md:w-[550px] p-2 block md:hidden">
+        <div className="flex flex-wrap gap-[1px]">
+          <Badge 
+          onClick={allContents} 
+          variant="outline" 
+          className={`cursor-pointer hover:bg-slate-100 dark:hover:bg-zinc-700 ${!isSelected ? 'bg-slate-300 dark:bg-zinc-800' : 'bg-white dark:bg-zinc-600'}`}
+          >
+            전체
+            </Badge>
+          {Mapdata.map((path) => (
+            <Badge 
+            variant="outline" 
+            className={`cursor-pointer hover:bg-slate-100 dark:hover:bg-zinc-700 
+            ${selectedPath === path.ko ? 'bg-slate-300 dark:bg-zinc-800' : 'bg-white dark:bg-zinc-600'}
+            `} 
+            key={path.d}
+            onClick={() => handlePathClick(path.ko)}
+            >
+              {path.ko}
+            </Badge>
+          ))}
+        </div>
+        <div> {!isSelected ? 
+          <>{data?.length}개의 데이터가 있습니다.</> 
+          : 
+          <>{filteredData.length}개의 데이터가 있습니다</> }
+        </div>
       </div>
 
-      <div className="w-full md:w-[450px] h-[500px]">
-        <div className="hidden md:block h-10">
-          {hoveredText && (
-            <h2 className="text-red-700 font-bold text-2xl">
-              {hoveredText}
-            </h2>
-          )}
+      <div className="w-full md:w-[550px] h-[500px]">
+        <div className="hidden md:block mt-4 mb-4">
+          <div className="flex justify-between items-center">
+            {!isSelected ?
+              <h2 className="text-red-700 font-bold text-xl w-40">
+                전체 {data?.length}
+              </h2>
+              : 
+              <>
+                {hoveredText && (
+                  <h2 className="text-red-700 font-bold text-xl w-40">
+                    {hoveredText} {filteredData.length}
+                  </h2>
+                )}
+              </>
+            }
+            <div className="text-right w-full mt-2 mb-2">
+              <Button onClick={allContents} variant="outline">전체보기</Button>
+            </div>
+          </div>
         </div>
-        <div className="w-full overflow-y-auto md:w-[450px] h-[460px] shadow-md dark:border-[1px] dark:border-zinc-500 rounded-md overscroll-y-auto flex flex-col pt-4 pl-2 pr-2 gap-2">
-          {data?.map((post) => (
-            <Cards
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              localName={post.localName}
-              koreanName={post.koreanName}
-              latitude={post.latitude}
-              longitude={post.longitude}
-              address={post.address}
-              description={post.description}
-              phoneNumber={post.phoneNumber}
-              mainImage={post.mainImage}
-              subImages={post.subImages}
-              link={post.link}
-              menu={post.menu}
-              comments={post.comments}
-            />
-          ))}
+        <div className="w-full overflow-y-auto md:w-[550px] pb-10 h-[460px] shadow-md dark:border-[1px] dark:border-zinc-500 rounded-md overscroll-y-auto flex flex-col pt-4 pl-2 pr-2 gap-2">
+          {isSelected ? <>
+            {filteredData.map((post) => (
+              <Cards
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                localName={post.localName}
+                koreanName={post.koreanName}
+                latitude={post.latitude}
+                longitude={post.longitude}
+                address={post.address}
+                description={post.description}
+                phoneNumber={post.phoneNumber}
+                mainImage={post.mainImage}
+                subImages={post.subImages}
+                link={post.link}
+                menu={post.menu}
+                comments={post.comments}
+              />
+            ))}
+          </>
+            :
+            <>
+              {data?.map((post) => (
+                <Cards
+                  key={post.id}
+                  id={post.id}
+                  title={post.title}
+                  localName={post.localName}
+                  koreanName={post.koreanName}
+                  latitude={post.latitude}
+                  longitude={post.longitude}
+                  address={post.address}
+                  description={post.description}
+                  phoneNumber={post.phoneNumber}
+                  mainImage={post.mainImage}
+                  subImages={post.subImages}
+                  link={post.link}
+                  menu={post.menu}
+                  comments={post.comments}
+                />
+              ))}
+            </>
+          }
         </div>
       </div>
 

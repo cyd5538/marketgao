@@ -56,7 +56,7 @@ const Cards:React.FC<CardsProps> = ({
         <div className="flex items-center justify-between space-x-4">
           <div className="flex items-center space-x-4">
             <div>
-              <div className='relative h-[120px] w-[120px] object-cover overflow-hidden'>
+              <div className='relative h-[70px] w-[70px] sm:h-[120px] sm:w-[120px] object-cover overflow-hidden'>
                 <Image 
                   src={mainImage} 
                   alt={title}
@@ -66,9 +66,9 @@ const Cards:React.FC<CardsProps> = ({
               </div>
             </div>
             <div className='flex flex-col gap-[1px]'>
-              <p className="text-md font-bold leading-none">{title}</p>
-              <p className="text-sm text-gray-700 dark:text-gray-300">{address}</p>
-              <p className="text-sm mb-2 underline">{description}</p>
+              <p className="text-md sm:text-sm font-bold leading-none">{title}</p>
+              <p className="text-sm sm:text-sm text-gray-700 dark:text-gray-300">{address}</p>
+              <p className="text-sm sm:text-sm mb-2 underline">{description}</p>
               <div className="text-sm text-muted-foreground flex flex-wrap gap-2">
                 {menu.map((a) => <Badge variant="secondary" className="cursor-pointer" key={a}>{a}</Badge>)}
               </div>
