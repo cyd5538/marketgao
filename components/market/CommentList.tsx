@@ -10,15 +10,17 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import { ko } from "date-fns/locale";
 import { CommentDeleteAlert } from "./commentDeleteAlert";
 import { CommentUpate } from "./commentUpdate";
+import { User } from "@prisma/client";
 
 interface CommentListProps {
+  currentUser?: User | null;
   id : string
   content : string
   name : string
   profileImage : string
-  userId : string
   postId : string
   createdAt : string
+  userId : string
 }
 
 async function commentDelete(id: string | undefined) {
@@ -31,9 +33,10 @@ const CommentList : React.FC<CommentListProps> = ({
   content, 
   name, 
   profileImage, 
-  userId, 
   postId,
-  createdAt
+  createdAt,
+  currentUser,
+  userId
 }) => {
 
   const queryClient = useQueryClient();
@@ -57,10 +60,12 @@ const CommentList : React.FC<CommentListProps> = ({
     return formatDistanceToNowStrict(date, { locale: ko, addSuffix: true });
   };
 
+  console.log(postId,currentUser?.id)
+
   return (
     <div className="border-b-[1px] pb-2 border-red-400">
       <div className="flex items-center gap-2"> 
-        <div className="flex flex-col gap-2 items-center justify-center">
+        <div className="flex flex-col gap-2 items-center justify-center w-[50px]">
           <div className="text-sm font-bold">
             {name}
           </div>
@@ -71,11 +76,13 @@ const CommentList : React.FC<CommentListProps> = ({
         </div>
         <div className="text-sm w-3/4">
           <div>{content}</div>
-        </div>  
+        </div> 
+        {userId === currentUser?.id ? 
         <div className="flex  justify-end items-end gap-2 w-1/5">
           <CommentDeleteAlert onClick={handleDleteComment} id={id}/>
           <CommentUpate content={content} id={id}/>
         </div>
+        :<></>} 
       </div>
       <span className="text-xs w-full flex justify-end text-gray-500">{formatDate(createdAt)} 댓글</span>
     </div>

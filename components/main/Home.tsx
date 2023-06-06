@@ -49,7 +49,7 @@ function Home() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-full pb-10 pt-2 md:flex-row">
+    <div className="flex flex-col justify-center items-center w-full pb-10 pt-10 md:flex-row">
       <svg
         className="hidden md:block"
         style={{ width: "500px", height: "500px" }}
@@ -59,7 +59,7 @@ function Home() {
         {Mapdata.map((path) => (
           <path
             className={`cursor-pointer ${selectedPath === path.ko ? 'fill-red-700' : 'fill-zinc-900'
-              } hover:stroke-slate-300 transition-all`}
+              } hover:stroke-slate-300 stroke-2 hover:opacity-95 transition-all`}
             key={path.ko}
             d={path.d}
             onClick={() => handlePathClick(path.ko)}
@@ -69,7 +69,7 @@ function Home() {
 
       {/* md일땐 이거로 */}
       <div className="w-full md:w-[550px] p-2 block md:hidden">
-        <div className="flex flex-wrap gap-[1px]">
+        <div className="flex flex-wrap gap-[1px] ">
           <Badge 
           onClick={allContents} 
           variant="outline" 
@@ -90,15 +90,15 @@ function Home() {
             </Badge>
           ))}
         </div>
-        <div> {!isSelected ? 
+        <div className="mt-4 mb-4"> {!isSelected ? 
           <>{data?.length}개의 데이터가 있습니다.</> 
           : 
           <>{filteredData.length}개의 데이터가 있습니다</> }
         </div>
       </div>
 
-      <div className="w-full md:w-[550px] h-[500px]">
-        <div className="hidden md:block mt-4 mb-4">
+      <div className="w-full md:w-[550px] h-[500px] md:h-[700px]">
+        <div className="hidden md:block mt-4 mb-4 top-[-80px] z-10">
           <div className="flex justify-between items-center">
             {!isSelected ?
               <h2 className="text-red-700 font-bold text-xl w-40">
@@ -107,7 +107,7 @@ function Home() {
               : 
               <>
                 {hoveredText && (
-                  <h2 className="text-red-700 font-bold text-xl w-40">
+                  <h2 className="text-red-700 font-bold text-xl w-72">
                     {hoveredText} {filteredData.length}
                   </h2>
                 )}

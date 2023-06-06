@@ -28,11 +28,12 @@ const Comment: React.FC<CommentProps> = ({ currentUser, id, comments }) => {
         {comments?.map((comment) => (
           <CommentList
             key={comment.id}
+            currentUser={currentUser}
             id={comment.id}
+            userId={comment.userId}
             content={comment.content}
             name={comment.name}
             profileImage={comment.profileImage}
-            userId={comment.userId}
             postId={comment.postId}
             createdAt={comment.createdAt}
           />

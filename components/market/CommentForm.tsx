@@ -41,7 +41,7 @@ const CommentForm:React.FC<CommentFormProps> = ({ currentUser, id }) => {
   const handleComment = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (!currentUser) {
-      alert("로그인 해주세요")
+      return alert("로그인 해주세요")
     }
     mutate(id)
   }, [])

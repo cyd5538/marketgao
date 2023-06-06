@@ -1,7 +1,7 @@
 "use client";
 
-import {AiTwotoneHeart} from 'react-icons/ai'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {AiTwotoneHeart, AiOutlineComment} from 'react-icons/ai'
+
 import {
   Card,
   CardContent,
@@ -56,12 +56,12 @@ const Cards:React.FC<CardsProps> = ({
         <div className="flex items-center justify-between space-x-4">
           <div className="flex items-center space-x-4">
             <div>
-              <div className='relative h-[70px] w-[70px] sm:h-[120px] sm:w-[120px] object-cover overflow-hidden'>
+              <div className='relative h-[150px] w-[150px] sm:h-[180px] sm:w-[180px] object-cover overflow-hidden'>
                 <Image 
                   src={mainImage} 
                   alt={title}
                   fill
-                  className='object-contain'
+                  className='object-contain rounded-md'
                 />
               </div>
             </div>
@@ -74,8 +74,16 @@ const Cards:React.FC<CardsProps> = ({
               </div>
             </div>
           </div>
-          <div className="curor-pointer">
-            <AiTwotoneHeart size={25} fill="#ff2402"/>
+          <div className="flex flex-col gap-2">
+            <span className='text-sm flex'>
+              <AiTwotoneHeart size={14} fill="#ff2402"/>
+              <span>
+                (0)
+              </span>
+            </span>
+            <span className='text-sm flex'>
+              <AiOutlineComment size={14} />({comments?.length})
+            </span>
           </div>
         </div>
       </CardContent>
