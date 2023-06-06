@@ -19,8 +19,8 @@ interface RootLayoutProps {
 export default async function RootLayout({ children }: RootLayoutProps) {
 
   const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_API_KEY}&autoload=false`;
-
   const currentUser = await getCurrentUser();
+
   return (
     <>
       <html lang="ko" suppressHydrationWarning>
