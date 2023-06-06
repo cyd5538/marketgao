@@ -49,7 +49,7 @@ function Home() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-full pb-20 pt-2 md:flex-row">
+    <div className="flex flex-col justify-center items-center h-screen w-full pb-10 pt-2 md:flex-row">
       <svg
         className="hidden md:block"
         style={{ width: "500px", height: "500px" }}

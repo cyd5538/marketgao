@@ -51,7 +51,7 @@ const Cards:React.FC<CardsProps> = ({
 
   return (
     <Link href={`/market/${id}`}>
-      <Card className="bg-gradient-to-r from-red-300 to-white dark:from-zinc-700 dark:to-zinc-900 shadow-md hover:translate-y-[1px] hover:translate-x-[1px] ease-linear duration-75 transition-all cursor-pointer flex flex-col justify-end pt-6 ">
+      <Card className="bg-gradient-to-r from-zinc-100 to-white dark:from-zinc-800 dark:to-zinc-800 shadow-md hover:translate-y-[1px] hover:translate-x-[1px] ease-linear duration-75 transition-all cursor-pointer flex flex-col justify-end pt-6 ">
       <CardContent className="grid gap-6">
         <div className="flex items-center justify-between space-x-4">
           <div className="flex items-center space-x-4">

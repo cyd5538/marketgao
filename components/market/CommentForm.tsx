@@ -52,6 +52,7 @@ const CommentForm:React.FC<CommentFormProps> = ({ currentUser, id }) => {
       onChange={(e) => setComments(e.target.value)}
       placeholder="Type your review here."
     />
+    
     <Button 
       disabled={isLoading}
       type="submit" 
