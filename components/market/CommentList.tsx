@@ -11,6 +11,7 @@ import { ko } from "date-fns/locale";
 import { CommentDeleteAlert } from "./commentDeleteAlert";
 import { CommentUpate } from "./commentUpdate";
 import { User } from "@prisma/client";
+import baseprofile from "@/public/avatar.png"
 
 interface CommentListProps {
   currentUser?: User | null;
@@ -60,7 +61,6 @@ const CommentList : React.FC<CommentListProps> = ({
     return formatDistanceToNowStrict(date, { locale: ko, addSuffix: true });
   };
 
-  console.log(postId,currentUser?.id)
 
   return (
     <div className="border-b-[1px] pb-2 border-red-400">
@@ -70,7 +70,7 @@ const CommentList : React.FC<CommentListProps> = ({
             {name}
           </div>
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarImage src={profileImage ? profileImage : baseprofile.src} alt="@shadcn" />
           </Avatar>
 
         </div>

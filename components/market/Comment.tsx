@@ -23,7 +23,10 @@ const Comment: React.FC<CommentProps> = ({ currentUser, id, comments }) => {
 
   return (
     <div className="mt-6 mb-6">
-      <CommentForm currentUser={currentUser} id={id}/>
+      <CommentForm 
+        currentUser={currentUser} 
+        id={id}
+      />
       <div className="mt-4 flex flex-col gap-4">
         {comments?.map((comment) => (
           <CommentList
@@ -36,6 +39,7 @@ const Comment: React.FC<CommentProps> = ({ currentUser, id, comments }) => {
             profileImage={comment.profileImage}
             postId={comment.postId}
             createdAt={comment.createdAt}
+            
           />
         ))}
       </div>

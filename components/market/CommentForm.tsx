@@ -22,7 +22,7 @@ const CommentForm:React.FC<CommentFormProps> = ({ currentUser, id }) => {
         content: comments,
         userId: currentUser?.id,
         name: currentUser?.name,
-        profileImage: currentUser?.image ?  currentUser?.image : ""
+        profileImage: currentUser?.image ?  currentUser?.image : "",
       })
     },
     {
