@@ -2,8 +2,9 @@
 
 import {
   LogOut,
-  Users,
 } from "lucide-react"
+
+import { AiOutlineComment } from "react-icons/ai"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -35,12 +36,16 @@ export function DropdownMenuDemo({ currentUser }: DropDownProps) {
       <DropdownMenuContent className="w-56">
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Users className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-          </DropdownMenuItem>
+
           {currentUser?.email ?
-            <></> :
+            <>
+              <Link href="/comment">
+                <DropdownMenuItem>
+                  <AiOutlineComment className="mr-2 h-4 w-4" />
+                  <span>내가 쓴 댓글</span>
+                </DropdownMenuItem>
+              </Link>
+            </> :
             <>
               <Link href="/login">
                 <DropdownMenuItem>
@@ -57,10 +62,10 @@ export function DropdownMenuDemo({ currentUser }: DropDownProps) {
             </>}
           <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
             <LogOut className="mr-2 h-4 w-4" />
-            <span>Log out</span>
+            <span>로그아웃</span>
           </DropdownMenuItem>
           <Link href="/post">
-            <DropdownMenuItem className="cursor-pointer"> 
+            <DropdownMenuItem className="cursor-pointer">
               <span>POST</span>
             </DropdownMenuItem>
           </Link>
