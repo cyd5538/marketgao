@@ -40,7 +40,12 @@ const MycommentCard:React.FC<MycommentCardProps> = ({
 
     </CardHeader>
     <CardContent>
-      <Link href={`/market/${postId}`}>
+      <Link
+      href={{
+        pathname :`/market/${postId}`,
+        query : {id }
+      }}
+      >
         <div className="text-xl font-bold underline mb-2 cursor-pointer">{content}</div>
       </Link>
       <p className="text-sm font-bold">

@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+
+import { useSearchParams } from "next/navigation";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 
@@ -15,13 +17,13 @@ import baseprofile from "@/public/avatar.png"
 
 interface CommentListProps {
   currentUser?: User | null;
-  id : string
-  content : string
-  name : string
-  profileImage : string
-  postId : string
-  createdAt : string
-  userId : string
+  id: string
+  content: string
+  name: string
+  profileImage: string
+  postId: string
+  createdAt: string
+  userId: string
 }
 
 async function commentDelete(id: string | undefined) {
@@ -29,11 +31,11 @@ async function commentDelete(id: string | undefined) {
   return response.data
 }
 
-const CommentList : React.FC<CommentListProps> = ({
-  id, 
-  content, 
-  name, 
-  profileImage, 
+const CommentList: React.FC<CommentListProps> = ({
+  id,
+  content,
+  name,
+  profileImage,
   postId,
   createdAt,
   currentUser,
@@ -62,9 +64,26 @@ const CommentList : React.FC<CommentListProps> = ({
   };
 
 
+  const searchParams = useSearchParams();
+  const commentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const scrollTargetId = searchParams?.get("id");
+      console.log(scrollTargetId === id, scrollTargetId, id);
+      if (scrollTargetId === id && commentRef.current) {
+        commentRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [searchParams?.get("id")]);
+
   return (
-    <div className="border-b-[1px] pb-2 border-red-400">
-      <div className="flex items-center gap-2"> 
+    <div ref={commentRef} className="border-b-[1px] pb-2 border-red-400">
+      <div className="flex items-center gap-2">
         <div className="flex flex-col gap-2 items-center justify-center w-[50px]">
           <div className="text-sm font-bold">
             {name}
@@ -76,13 +95,13 @@ const CommentList : React.FC<CommentListProps> = ({
         </div>
         <div className="text-sm w-3/4">
           <div>{content}</div>
-        </div> 
-        {userId === currentUser?.id ? 
-        <div className="flex  justify-end items-end gap-2 w-1/5">
-          <CommentDeleteAlert onClick={handleDleteComment} id={id}/>
-          <CommentUpate content={content} id={id}/>
         </div>
-        :<></>} 
+        {userId === currentUser?.id ?
+          <div className="flex  justify-end items-end gap-2 w-1/5">
+            <CommentDeleteAlert onClick={handleDleteComment} id={id} />
+            <CommentUpate content={content} id={id} />
+          </div>
+          : <></>}
       </div>
       <span className="text-xs w-full flex justify-end text-gray-500">{formatDate(createdAt)} 댓글</span>
     </div>
