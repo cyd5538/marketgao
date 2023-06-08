@@ -5,6 +5,7 @@ import {
 } from "lucide-react"
 
 import { AiOutlineComment } from "react-icons/ai"
+import { CiMemoPad } from "react-icons/ci"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -42,7 +43,13 @@ export function DropdownMenuDemo({ currentUser }: DropDownProps) {
               <Link href="/comment">
                 <DropdownMenuItem>
                   <AiOutlineComment className="mr-2 h-4 w-4" />
-                  <span>내가 쓴 댓글</span>
+                  <span>내 댓글</span>
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/reservation">
+                <DropdownMenuItem>
+                  <CiMemoPad className="mr-2 h-4 w-4" />
+                  <span>내 메모</span>
                 </DropdownMenuItem>
               </Link>
             </> :

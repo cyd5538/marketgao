@@ -26,6 +26,7 @@ model User {
   posts           Post[]
   comments        Comment[]
   favorite        Favorite[]
+  resevation      Reservation[]
 }
 
 model Account {
@@ -79,6 +80,7 @@ model Post {
   mainImage    String
   subImages    String[]
   link         String
+  likedIds     String[] @db.ObjectId
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -99,11 +101,24 @@ model Comment {
 }
 
 model Favorite {
-  id             String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
-  description String
-  mainImage    String
-  createdAt DateTime @default(now())
-  userId String @db.ObjectId
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  title             String
+  description       String
+  mainImage         String
+  postId            String
+  createdAt         DateTime @default(now())
+  userId            String @db.ObjectId
+  user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Reservation {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  title             String
+  description       String
+  mainImage         String
+  postId            String
+  date              DateTime
+  userId            String @db.ObjectId
+  createdAt         DateTime @default(now())
+  user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -37,6 +37,9 @@ export default function Market({ currentUser }: MarketProps) {
       <MarketImage image={data[0].subImages} />
       <div className="mx-auto max-w-[1000px] p-8">
         <MarketInfo
+          mainImage={data[0].mainImage}
+          currentUser={currentUser}
+          postId={data[0].id}
           title={data[0].title}
           description={data[0].description}
           phoneNumber={data[0].phoneNumber}

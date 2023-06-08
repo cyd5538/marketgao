@@ -5,8 +5,13 @@ import { AiOutlinePhone } from 'react-icons/ai'
 import { MdOutlineOtherHouses } from "react-icons/md";
 
 import { Badge } from "@/components/ui/badge"
+import { DatePicker } from './Date';
+import { User } from '@prisma/client';
 
 interface MarketInfoProps {
+  currentUser? : User | null
+  mainImage : string
+  postId : string;
   title: string;
   description: string;
   phoneNumber: string;
@@ -19,7 +24,10 @@ const MarketInfo: React.FC<MarketInfoProps> = ({
   description,
   phoneNumber,
   address,
-  menu
+  menu,
+  postId,
+  mainImage,
+  currentUser
 }) => {
   return (
     <div>
@@ -48,6 +56,15 @@ const MarketInfo: React.FC<MarketInfoProps> = ({
           <div><MdOutlineOtherHouses /></div>
           <div>{address}</div>
         </h3>
+      </div>
+      <div className="flex gap-2">
+        <DatePicker 
+          description={description}
+          title={title}
+          mainImage={mainImage}
+          currentUser={currentUser}
+          postId={postId}
+        />
       </div>
     </div>
   )

@@ -28,7 +28,7 @@ const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [displayedComments, setDisplayedComments] = useState<User["comments"]>([]);
+  const [displayedComments, setDisplayedComments] = useState([]);
 
   const itemsPerPage = 3; // 페이지 당 아이템 수
   const maxPageNumbers = 5; // 표시할 최대 페이지 번호 수
@@ -82,9 +82,9 @@ const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
     <div className="md:w-[500px] w-full m-auto pt-10 pb-10">
       <h2 className="font-bold text-xl mb-6 pl-4">댓글 {totalItems} 개</h2>
       <div className="flex flex-col gap-2 pl-2 pr-2 h-[450px]">
-        {displayedComments?.map((a, index) => (
+        {displayedComments?.map((a : any) => (
           <MycommentCard
-            key={index}
+            key={a.id}
             id={a.id}
             postId={a.postId}
             name={a.name}
@@ -93,6 +93,7 @@ const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
           />
         ))}
       </div>
+      {displayedComments?.length !== 0 ?
       <div className="flex items-center justify-center mt-4 gap-4">
         <Button
           onClick={goToPreviousPage}
@@ -121,6 +122,9 @@ const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
           next
         </Button>
       </div>
+      : 
+      <></>
+      }
     </div>
   );
 };
