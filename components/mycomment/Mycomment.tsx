@@ -1,5 +1,9 @@
 "use client"
+
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from 'axios';
+
 import { User } from "@prisma/client";
 import MycommentCard from "./MycommentCard";
 import { Button } from "../ui/button";
@@ -8,7 +12,21 @@ interface MycommentProps {
   currentUser: User | null;
 }
 
+const myPosts = async (id : string | undefined) => {
+  const response = await axios.get(`/api/mycomments/${id}`)
+  return response.data
+}
+
+
 const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
+  const { data, error, isLoading } = useQuery({
+    queryFn: () => myPosts(currentUser?.id),
+    queryKey: ["post", "comment"],
+  })
+  if (error) return <div>error</div>
+
+
+
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedComments, setDisplayedComments] = useState<User["comments"]>([]);
 
@@ -16,18 +34,18 @@ const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
   const maxPageNumbers = 5; // 표시할 최대 페이지 번호 수
 
   // 전체 댓글, 전체 페이지
-  const totalItems = currentUser?.comments.length || 0;
+  const totalItems = data?.length || 0;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   // 페이지 시작과, 끝
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
+
+
   useEffect(() => {
-    // 원본배열 반대로해서 넣어줌
-    const commentsCopy = currentUser?.comments.slice().reverse() || [];
-    setDisplayedComments(commentsCopy.slice(startIndex, endIndex));
-  }, [currentUser, currentPage]);
+    setDisplayedComments(data?.slice(startIndex, endIndex));
+  }, [currentUser, currentPage, data]);
 
   const goToPage = (page: number) => {
     setCurrentPage(page); // page 번호로 이동
@@ -64,7 +82,7 @@ const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
     <div className="md:w-[500px] w-full m-auto pt-10 pb-10">
       <h2 className="font-bold text-xl mb-6 pl-4">댓글 {totalItems} 개</h2>
       <div className="flex flex-col gap-2 pl-2 pr-2 h-[450px]">
-        {displayedComments.map((a, index) => (
+        {displayedComments?.map((a, index) => (
           <MycommentCard
             key={index}
             id={a.id}

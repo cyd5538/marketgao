@@ -68,7 +68,7 @@ function Home() {
       </svg>
 
       {/* md일땐 이거로 */}
-      <div className="w-full md:w-[550px] p-2 block md:hidden">
+      <div className="w-full md:w-[600px] p-2 block md:hidden">
         <div className="flex flex-wrap gap-[1px] ">
           <Badge 
           onClick={allContents} 
@@ -97,7 +97,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="w-full md:w-[550px] h-[500px] md:h-[700px]">
+      <div className="w-full md:w-[600px] h-[500px] md:h-[700px]">
         <div className="hidden md:block mt-4 mb-4 top-[-80px] z-10">
           <div className="flex justify-between items-center">
             {!isSelected ?

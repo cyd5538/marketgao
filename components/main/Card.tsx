@@ -52,9 +52,9 @@ const Cards:React.FC<CardsProps> = ({
   return (
     <Link href={`/market/${id}`}>
       <Card className="bg-gradient-to-r from-zinc-100 to-white dark:from-zinc-800 dark:to-zinc-800 shadow-md hover:translate-y-[1px] hover:translate-x-[1px] ease-linear duration-75 transition-all cursor-pointer flex flex-col justify-end pt-6 ">
-      <CardContent className="grid gap-6">
-        <div className="flex items-center justify-between space-x-4">
-          <div className="flex items-center space-x-4">
+      <CardContent className="grid gap-2">
+        <div className="flex items-center justify-between space-x-2">
+          <div className="flex items-center space-x-2">
             <div>
               <div className='relative h-[150px] w-[150px] sm:h-[180px] sm:w-[180px] object-cover overflow-hidden'>
                 <Image 

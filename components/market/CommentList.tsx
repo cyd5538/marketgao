@@ -70,7 +70,6 @@ const CommentList: React.FC<CommentListProps> = ({
   useEffect(() => {
     const timeout = setTimeout(() => {
       const scrollTargetId = searchParams?.get("id");
-      console.log(scrollTargetId === id, scrollTargetId, id);
       if (scrollTargetId === id && commentRef.current) {
         commentRef.current.scrollIntoView({ behavior: "smooth" });
       }
