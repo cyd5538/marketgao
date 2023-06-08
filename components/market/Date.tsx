@@ -27,10 +27,10 @@ import { Loader2 } from "lucide-react"
 
 interface DatePickerProps {
   currentUser? : User | null
-  postId : string
-  description : string
-  title : string
-  mainImage : string
+  postId? : string
+  description? : string
+  title? : string
+  mainImage? : string
 }
 
 export function DatePicker({postId, currentUser, description, title, mainImage} : DatePickerProps) {
@@ -118,7 +118,7 @@ export function DatePicker({postId, currentUser, description, title, mainImage} 
         </>
         :
         <>
-          <span>방문할 날짜 메모</span>
+          <span>방문할 날짜</span>
         </>
       }
       </Button>

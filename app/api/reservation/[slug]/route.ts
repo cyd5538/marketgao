@@ -35,23 +35,23 @@ export async function DELETE(request: Request, { params }: { params: IParams }) 
     return NextResponse.error();
   }
 
-  const comment = await prisma.comment.findUnique({ where: { id:params.slug } });
+  const reservation = await prisma.reservation.findUnique({ where: { id:params.slug } });
 
-  await prisma.comment.delete({ where: { id:params.slug } });
+  await prisma.reservation.delete({ where: { id:params.slug } });
 
-  return NextResponse.json(comment);
+  return NextResponse.json(reservation);
 }
 
 export async function PUT(request: Request, { params }: { params: IParams }) {
   const body = await request.json();
-  const { content } = body
+  const { date } = body
   
-  const updatedComment = await prisma.comment.update({
+  const updatedreservation = await prisma.reservation.update({
     where: { id : params.slug },
     data: {
-      content,
+      date,
     }
   });
 
-  return NextResponse.json(updatedComment);
+  return NextResponse.json(updatedreservation);
 }

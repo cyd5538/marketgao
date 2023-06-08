@@ -2,6 +2,10 @@
 
 import Image from 'next/image';
 
+import { useCallback, useEffect, useRef } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+
 import { BellRing, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -14,10 +18,13 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Link from 'next/link';
+import { ReservationDeleteAlert } from './ReservationDeleteAlert';
+import { ReservationUpdate } from './ReservationUpdate';
  
 type CardProps = React.ComponentProps<typeof Card>
  
 interface ReservationCardProps {
+  id : string
   date : Date
   description : string
   mainImage : string
@@ -25,7 +32,13 @@ interface ReservationCardProps {
   title : string
 }
 
+async function commentDelete(id: string | undefined) {
+  const response = await axios.delete(`/api/reservation/${id}`);
+  return response.data
+}
+
 export function ReservationCard({ 
+  id,
   className, 
   date, 
   description, 
@@ -46,7 +59,6 @@ export function ReservationCard({
     return diffDays;
   }
   
-
   const today = new Date(); // 현재 날짜와 시간
   const selectedDate = new Date(date); // 선택한 날짜와 시간
   
@@ -56,10 +68,25 @@ export function ReservationCard({
   const options = { year: 'numeric', month: 'long', day: 'numeric' } as const;
   const formattedDate = dates?.toLocaleDateString('ko-KR', options);
 
+  const queryClient = useQueryClient();
+  
+  const ReservDeleteMutation = useMutation({
+    mutationFn: commentDelete,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reservation"] });
+    },
+    onError: () => {
+    },
+  });
+
+  const handleDleteReserv = useCallback((id: string) => {
+    ReservDeleteMutation.mutate(id)
+  }, [])
+
   return (
-    <Card className={cn("w-[380px]", className)} {...props}>
+    <Card className={cn("w-[400px] h-[420px]", className)} {...props}>
       <CardHeader>
-        <CardTitle>D-{dday}</CardTitle>
+        <CardTitle>D-{dday + 1}</CardTitle>
         <CardDescription>방문 예정일 {formattedDate}</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
@@ -77,7 +104,7 @@ export function ReservationCard({
                 <p className="text-sm font-medium leading-none">
                   {title}
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground h-[50px]">
                   {description}
                 </p>
               </div>
@@ -85,12 +112,8 @@ export function ReservationCard({
         </div>
       </CardContent>
       <CardFooter className="gap-2">
-        <Button className="w-full">
-          <Check className="mr-2 h-4 w-4" /> 방문일 수정
-        </Button>
-        <Button className="w-full">
-          <Check className="mr-2 h-4 w-4" /> 삭제
-        </Button>
+        <ReservationUpdate id={id}/>
+        <ReservationDeleteAlert onClick={handleDleteReserv} id={id}/>
       </CardFooter>
     </Card>
   )
