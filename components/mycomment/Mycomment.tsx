@@ -7,25 +7,33 @@ import axios from 'axios';
 import { User } from "@prisma/client";
 import MycommentCard from "./MycommentCard";
 import { Button } from "../ui/button";
+import { redirect } from "next/navigation";
+import Loading from "../ui/Loading";
+import { Loader, Loader2 } from "lucide-react";
 
 interface MycommentProps {
   currentUser: User | null;
 }
 
-const myPosts = async (id : string | undefined) => {
+const myPosts = async (id: string | undefined) => {
   const response = await axios.get(`/api/mycomments/${id}`)
   return response.data
 }
 
 
 const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
+
+  useEffect(() => {
+    if (!currentUser) {
+      redirect("/")
+    }
+  }, [])
+
   const { data, error, isLoading } = useQuery({
     queryFn: () => myPosts(currentUser?.id),
     queryKey: ["post", "comment"],
   })
   if (error) return <div>error</div>
-
-
 
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedComments, setDisplayedComments] = useState([]);
@@ -40,8 +48,6 @@ const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
   // 페이지 시작과, 끝
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
-
 
   useEffect(() => {
     setDisplayedComments(data?.slice(startIndex, endIndex));
@@ -80,9 +86,14 @@ const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
 
   return (
     <div className="md:w-[500px] w-full m-auto pt-10 pb-10">
+      {isLoading ? 
+      <div className="w-full h-screen flex items-center justify-center">
+        <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+      </div> : 
+      <>
       <h2 className="font-bold text-xl mb-6 pl-4">댓글 {totalItems} 개</h2>
       <div className="flex flex-col gap-2 pl-2 pr-2 h-[450px]">
-        {displayedComments?.map((a : any) => (
+        {displayedComments?.map((a: any) => (
           <MycommentCard
             key={a.id}
             id={a.id}
@@ -94,37 +105,38 @@ const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
         ))}
       </div>
       {displayedComments?.length !== 0 ?
-      <div className="flex items-center justify-center mt-4 gap-4">
-        <Button
-          onClick={goToPreviousPage}
-          disabled={currentPage === 1}
-          className="px-2 pl-2 pr-2 py-1 rounded-md bg-red-500 hover:bg-red-600 disabled:bg-red-200 disabled:cursor-not-allowed"
-        >
-          prev
-        </Button>
-        <div>
-          {getPageNumbers().map((pageNumber) => (
-            <button
-              key={pageNumber}
-              onClick={() => goToPage(pageNumber)}
-              className={`px-2 py-1 rounded-md mx-1 focus:outline-none text-white ${currentPage === pageNumber ? "bg-red-500 text-white" : "bg-red-200 hover:bg-red-700"
-                }`}
-            >
-              {pageNumber}
-            </button>
-          ))}
+        <div className="flex items-center justify-center mt-4 gap-4">
+          <Button
+            onClick={goToPreviousPage}
+            disabled={currentPage === 1}
+            className="px-2 pl-2 pr-2 py-1 rounded-md bg-red-500 hover:bg-red-600 disabled:bg-red-200 disabled:cursor-not-allowed"
+          >
+            prev
+          </Button>
+          <div>
+            {getPageNumbers().map((pageNumber) => (
+              <button
+                key={pageNumber}
+                onClick={() => goToPage(pageNumber)}
+                className={`px-2 py-1 rounded-md mx-1 focus:outline-none text-white ${currentPage === pageNumber ? "bg-red-500 text-white" : "bg-red-200 hover:bg-red-700"
+                  }`}
+              >
+                {pageNumber}
+              </button>
+            ))}
+          </div>
+          <Button
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages}
+            className="px-2 pl-2 pr-2 py-1 rounded-md bg-red-500 hover:bg-red-600 disabled:bg-red-200 disabled:cursor-not-allowe"
+          >
+            next
+          </Button>
         </div>
-        <Button
-          onClick={goToNextPage}
-          disabled={currentPage === totalPages}
-          className="px-2 pl-2 pr-2 py-1 rounded-md bg-red-500 hover:bg-red-600 disabled:bg-red-200 disabled:cursor-not-allowe"
-        >
-          next
-        </Button>
-      </div>
-      : 
-      <></>
+        :
+        <></>
       }
+      </>}
     </div>
   );
 };
