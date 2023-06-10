@@ -34,22 +34,30 @@ export function DropdownMenuDemo({ currentUser }: DropDownProps) {
       <DropdownMenuTrigger asChild>
         <Button><FaHamburger size={24} /></Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="absolute w-52 left-[-188px]">
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-
           {currentUser?.email ?
             <>
               <Link href="/comment">
                 <DropdownMenuItem>
                   <AiOutlineComment className="mr-2 h-4 w-4" />
-                  <span>내 댓글</span>
+                  <span className="text-md">내 댓글</span>
                 </DropdownMenuItem>
               </Link>
               <Link href="/reservation">
                 <DropdownMenuItem>
                   <CiMemoPad className="mr-2 h-4 w-4" />
-                  <span>내 메모</span>
+                  <span className="text-md">내 메모</span>
+                </DropdownMenuItem>
+              </Link>
+              <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
+                <LogOut className="mr-2 h-4 w-4" />
+                <span className="text-md">로그아웃</span>
+              </DropdownMenuItem>
+              <Link href="/post">
+                <DropdownMenuItem className="cursor-pointer">
+                  <span className="text-md">POST</span>
                 </DropdownMenuItem>
               </Link>
             </> :
@@ -57,25 +65,16 @@ export function DropdownMenuDemo({ currentUser }: DropDownProps) {
               <Link href="/login">
                 <DropdownMenuItem>
                   <AiOutlineLogin className="mr-2 h-4 w-4" />
-                  Login
+                  <span className="text-md">Login</span>
                 </DropdownMenuItem>
               </Link>
               <Link href="/signin">
                 <DropdownMenuItem>
                   <BsFillSignIntersectionFill className="mr-2 h-4 w-4" />
-                  Sign in
+                  <span className="text-md">Sign in</span>
                 </DropdownMenuItem>
               </Link>
             </>}
-          <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
-            <LogOut className="mr-2 h-4 w-4" />
-            <span>로그아웃</span>
-          </DropdownMenuItem>
-          <Link href="/post">
-            <DropdownMenuItem className="cursor-pointer">
-              <span>POST</span>
-            </DropdownMenuItem>
-          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
       </DropdownMenuContent>
