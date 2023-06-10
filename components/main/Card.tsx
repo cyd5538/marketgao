@@ -56,19 +56,20 @@ const Cards:React.FC<CardsProps> = ({
         <div className="flex items-center justify-between space-x-2">
           <div className="flex items-center space-x-2">
             <div>
-              <div className='relative h-[150px] w-[150px] sm:h-[180px] sm:w-[180px] object-cover overflow-hidden'>
-                <Image 
+              <div className='relative h-[150px] w-[150px] sm:h-[300px] sm:w-[250px] object-cover overflow-hidden'>
+                <Image
+                  style={{borderRadius: "10%", objectFit: "contain"}}
                   src={mainImage} 
                   alt={title}
                   fill
-                  className='object-contain rounded-md'
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
             </div>
             <div className='flex flex-col gap-[1px]'>
-              <p className="text-md sm:text-sm font-bold leading-none">{title}</p>
-              <p className="text-sm sm:text-sm text-gray-700 dark:text-gray-300">{address}</p>
-              <p className="text-sm sm:text-sm mb-2 underline">{description}</p>
+              <p className="text-md sm:text-xl font-bold leading-none">{title}</p>
+              <p className="text-sm sm:text-md text-gray-700 dark:text-gray-300">{address}</p>
+              <p className="text-sm sm:text-base mb-2 underline">{description}</p>
               <div className="text-sm text-muted-foreground flex flex-wrap gap-2">
                 {menu.map((a) => <Badge variant="secondary" className="cursor-pointer" key={a}>{a}</Badge>)}
               </div>
