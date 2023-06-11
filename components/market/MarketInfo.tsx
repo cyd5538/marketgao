@@ -7,11 +7,12 @@ import { MdOutlineOtherHouses } from "react-icons/md";
 import { Badge } from "@/components/ui/badge"
 import { DatePicker } from './Date';
 import { User } from '@prisma/client';
+import Link from 'next/link';
 
 interface MarketInfoProps {
-  currentUser? : User | null
-  mainImage : string
-  postId : string;
+  currentUser?: User | null
+  mainImage: string
+  postId: string;
   title: string;
   description: string;
   phoneNumber: string;
@@ -42,12 +43,22 @@ const MarketInfo: React.FC<MarketInfoProps> = ({
       <h1 className="text-xl mb-4 underline">{description}</h1>
       <div>
         <h3 className="flex flex-wrap gap-2 mb-4">
-          {menu.map((a) => <Badge className="text-md cursor-pointer" key={a} variant="secondary">{a}</Badge>)}
+          {menu.map((a) =>
+            <Link
+              href={{
+                pathname: `/tag`,
+                query: { q: `${a}` }
+              }}
+            >
+              <Badge className="text-md cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700" key={a} variant="secondary">
+                {a}
+              </Badge>
+            </Link>)}
         </h3>
       </div>
       <div>
         <h3 className="flex gap-2">
-          <div><AiOutlinePhone /></div> 
+          <div><AiOutlinePhone /></div>
           <div>{phoneNumber}</div>
         </h3>
       </div>
@@ -58,7 +69,7 @@ const MarketInfo: React.FC<MarketInfoProps> = ({
         </h3>
       </div>
       <div className="flex gap-2">
-        <DatePicker 
+        <DatePicker
           description={description}
           title={title}
           mainImage={mainImage}

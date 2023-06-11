@@ -6,6 +6,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { User } from "@prisma/client";
 import { usePathname, redirect  } from 'next/navigation';
 import { useEffect } from "react";
+import { Search } from "lucide-react";
+import { Button } from "./ui/button";
+
 interface NavbarProps {
   currentUser?: User | null;
 } 
@@ -26,6 +29,11 @@ export function SiteHeader({ currentUser }: NavbarProps) {
         <MainNav/>
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="flex items-center space-x-1 gap-2">
+            <Link href="/search">
+              <Button variant="ghost" size="sm">
+                <Search/>
+              </Button>
+            </Link>
             <ThemeToggle/>
             <DropdownMenuDemo currentUser={currentUser}/>
           </nav>

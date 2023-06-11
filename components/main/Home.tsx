@@ -102,7 +102,7 @@ function Home() {
             </div>
           </div>
 
-          <div className="w-full md:w-[550px] h-[500px] md:h-[700px]">
+          <div className="w-full md:w-[700px] h-[600px] md:h-[700px]">
             <div className="hidden md:block mt-4 mb-4 top-[-80px] z-10">
               <div className="flex justify-between items-center">
                 {!isSelected ?
@@ -123,7 +123,7 @@ function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-full overflow-y-auto md:w-[550px] pb-10 h-[460px] shadow-md dark:border-[1px] dark:border-zinc-500 rounded-md overscroll-y-auto flex flex-col pt-4 pl-2 pr-2 gap-2">
+            <div className="w-full overflow-y-auto md:w-[700px] pb-10 h-[560px] shadow-md dark:border-[1px] dark:border-zinc-500 rounded-md overscroll-y-auto flex flex-col pt-4 pl-2 pr-2 gap-2">
               {isSelected ? <>
                 {filteredData.map((post) => (
                   <Cards

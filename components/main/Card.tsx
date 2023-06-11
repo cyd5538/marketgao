@@ -50,28 +50,43 @@ const Cards:React.FC<CardsProps> = ({
 }) => {
 
   return (
-    <Link href={`/market/${id}`}>
-      <Card className="bg-gradient-to-r from-zinc-100 to-white dark:from-zinc-800 dark:to-zinc-800 shadow-md hover:translate-y-[1px] hover:translate-x-[1px] ease-linear duration-75 transition-all cursor-pointer flex flex-col justify-end pt-6 ">
+   
+      <Card className=" dark:from-zinc-800 dark:to-zinc-800 shadow-md hover:translate-y-[1px] flex flex-col justify-end pt-6 ">
       <CardContent className="grid gap-2">
         <div className="flex items-center justify-between space-x-2">
           <div className="flex items-center space-x-2">
-            <div>
-              <div className='relative h-[150px] w-[150px] sm:h-[300px] sm:w-[250px] object-cover overflow-hidden'>
-                <Image
-                  style={{borderRadius: "10%", objectFit: "contain"}}
-                  src={mainImage} 
-                  alt={title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </div>
-            </div>
+              <Link href={`/market/${id}`}>
+                <div className='relative h-[150px] w-[150px] sm:h-[300px] sm:w-[250px] hover:scale-110 ease-linear duration-75 transition-all object-cover overflow-hidden'>
+                  <Image
+                    priority={true} 
+                    style={{borderRadius: "15%", objectFit: "contain"}}
+                    src={mainImage} 
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+              </Link>
             <div className='flex flex-col gap-[1px]'>
-              <p className="text-md sm:text-xl font-bold leading-none">{title}</p>
+              <Link href={`/market/${id}`}>
+                <p className="text-md hover:underline cursor-pointer sm:text-xl font-bold leading-none">{title}</p>
+              </Link>
               <p className="text-sm sm:text-md text-gray-700 dark:text-gray-300">{address}</p>
               <p className="text-sm sm:text-base mb-2 underline">{description}</p>
               <div className="text-sm text-muted-foreground flex flex-wrap gap-2">
-                {menu.map((a) => <Badge variant="secondary" className="cursor-pointer" key={a}>{a}</Badge>)}
+                {menu.map((a) =>
+                <Link 
+                  key={a}
+                  href={{
+                    pathname: `/tag`,
+                    query: { q: `${a}` }
+                  }}
+                > 
+                  <Badge variant="secondary" className="cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700" >
+                    {a}
+                  </Badge>
+                </Link>
+                )}
               </div>
             </div>
           </div>
@@ -89,7 +104,6 @@ const Cards:React.FC<CardsProps> = ({
         </div>
       </CardContent>
     </Card>
-  </Link>
   )
 }
 
