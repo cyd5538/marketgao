@@ -33,7 +33,7 @@ const Reservation: React.FC<ParticeProps> = ({ currentUser }) => {
   if (error) return <div>error</div>
 
   return (
-    <div className="max-w-[800px] m-auto pt-10 flex justify-center">
+    <div className="max-w-[800px] m-auto pt-10 pb-10 flex justify-center">
       {isLoading ?
         <div className="w-full h-screen flex items-center justify-center">
           <Loader2 className="mr-2 h-6 w-6 animate-spin" />

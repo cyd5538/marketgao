@@ -1,6 +1,6 @@
 "use client";
 import React from 'react'
-import Carousel from './carosuel';
+import Carousel from '../carosuel';
 import Image from 'next/image';
 
 interface MarketImageProps {
