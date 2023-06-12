@@ -20,6 +20,7 @@ import {
 import Link from 'next/link';
 import { ReservationDeleteAlert } from './ReservationDeleteAlert';
 import { ReservationUpdate } from './ReservationUpdate';
+import { toast } from 'react-hot-toast';
  
 type CardProps = React.ComponentProps<typeof Card>
  
@@ -74,6 +75,15 @@ export function ReservationCard({
     mutationFn: commentDelete,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reservation"] });
+      toast.custom((t) => (
+        <div
+          className={`bg-white text-black dark:bg-slate-700 dark:text-white px-6 py-4 shadow-md rounded-full ${
+            t.visible ? 'animate-enter' : 'animate-leave'
+          }`}
+        >
+            ✔ 삭제 완료
+        </div>
+      ))
     },
     onError: () => {
     },

@@ -19,7 +19,7 @@ const CarouselControls = (props: Props) => {
         }}
         disabled={!props.canScrollPrev}
         className={classNames({
-          "px-4 py-2 text-black dark:text-white rounded-md hover:opacity-100 opacity-50": true,
+          "px-4 py-2 text-black dark:text-white rounded-md hover:opacity-100 opacity-70": true,
           "bg-white dark:bg-zinc-800": !props.canScrollPrev,
           "bg-white dark:bg-zinc-700": props.canScrollPrev,
         })}
@@ -34,7 +34,7 @@ const CarouselControls = (props: Props) => {
         }}
         disabled={!props.canScrollNext}
         className={classNames({
-          "px-4 py-2 text-black dark:text-white rounded-md hover:opacity-100 opacity-50": true,
+          "px-4 py-2 text-black dark:text-white rounded-md hover:opacity-100 opacity-70": true,
           "bg-white dark:bg-zinc-800": !props.canScrollNext,
           "bg-white dark:bg-zinc-700": props.canScrollNext,
         })}

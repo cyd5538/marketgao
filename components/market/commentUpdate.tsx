@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
 import { Loader2 } from "lucide-react"
+import { toast } from "react-hot-toast";
 
 interface CommentUpdateProps {
   content : string
@@ -42,7 +43,15 @@ export function CommentUpate({content, id} : CommentUpdateProps) {
       },
       onSuccess: (data) => {
         queryClient.invalidateQueries(["post"])
-        alert("수정 완료")
+        toast.custom((t) => (
+          <div
+            className={`bg-white text-black dark:bg-slate-700 dark:text-white px-6 py-4 shadow-md rounded-full ${
+              t.visible ? 'animate-enter' : 'animate-leave'
+            }`}
+          >
+             ✏ 댓글 수정 완료.
+          </div>
+        ));
       }
     }
   )
@@ -59,9 +68,9 @@ export function CommentUpate({content, id} : CommentUpdateProps) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit review</DialogTitle>
+          <DialogTitle>Edit comment</DialogTitle>
           <DialogDescription>
-            리뷰를 수정해주세요
+            댓글을 수정해주세요
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

@@ -11,6 +11,7 @@ import getCurrentUser from "./actions/getCurrentUser"
 import QueryWrapper from "@/components/QueryWrapper"
 import Footer from "@/components/footer"
 import Script from 'next/script';
+import Toasters from "@/components/Toaser"
 
 interface RootLayoutProps {
   children: React.ReactNode
@@ -35,6 +36,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <div className="relative flex min-h-screen flex-col">
+                <Toasters />
                 <SiteHeader currentUser={currentUser} />
                 <div className="flex-1">{children}</div>
                 <Footer />

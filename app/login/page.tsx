@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/icons"
+import { toast } from 'react-hot-toast';
 
 type FormData = {
   email: string;
@@ -43,12 +44,20 @@ export default function IndexPage() {
         setIsLoading(false);
 
         if (callback?.ok) {
-          alert("로그인 성공")
+          toast.custom((t) => (
+            <div
+              className={`bg-white text-black dark:bg-slate-700 dark:text-white px-6 py-4 shadow-md rounded-full ${
+                t.visible ? 'animate-enter' : 'animate-leave'
+              }`}
+            >
+                ✔ 로그인 성공.
+            </div>
+          ));
           router.push("/");
         }
 
         if (callback?.error) {
-          alert(callback?.error)
+          toast.error(callback?.error)
         }
       })
   }

@@ -11,6 +11,7 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import Cards from "../main/Card";
 import Loading from "../ui/Loading";
+import TagItem from "../tag/TagItem";
 
 const Posts = async (arr: string) => {
   const response = await axios.get(`/api/post/`);
@@ -67,25 +68,18 @@ const Search = () => {
           </form>
         </div>
       </div>
-      <div className="gap-6 mb-10 mt-10 flex flex-col p-2">
+      <div className="grid grid-cols-[1,auto] sm:grid-cols-2 gap-4 p-2 mb-20 mt-20">
         {data?.length === 0 && searchBoolean === false ? <>데이터가 없습니다 </> : <>
           {searchData?.map((post) =>
-            <Cards
+            <TagItem
               key={post.id}
               id={post.id}
               title={post.title}
-              localName={post.localName}
-              koreanName={post.koreanName}
-              latitude={post.latitude}
-              longitude={post.longitude}
               address={post.address}
               description={post.description}
-              phoneNumber={post.phoneNumber}
-              mainImage={post.mainImage}
               subImages={post.subImages}
               link={post.link}
               menu={post.menu}
-              comments={post.comments}
             />
           )}
         </>}

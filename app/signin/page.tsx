@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/icons"
 import axios from "axios";
+import { toast } from 'react-hot-toast';
 
 type FormData = {
   name: string;
@@ -46,15 +47,38 @@ export default function IndexPage() {
 
     axios.post('/api/register', data)
       .then(() => {
-        alert("회원가입 성공 로그인 해주세요!")
+        toast.custom((t) => (
+          <div
+            className={`bg-white text-black dark:bg-slate-700 dark:text-white px-6 py-4 shadow-md rounded-full ${
+              t.visible ? 'animate-enter' : 'animate-leave'
+            }`}
+          >
+              💨 회원가입 성공 로그인 해주세요!
+          </div>
+        ))
         router.push("/login")
       })
       .catch((error) => {
         if (error.response && error.response.status === 500) {
-          alert("이미 존재하는 이메일입니다.");
+          toast.custom((t) => (
+            <div
+              className={`bg-white text-black dark:bg-slate-700 dark:text-white px-6 py-4 shadow-md rounded-full ${
+                t.visible ? 'animate-enter' : 'animate-leave'
+              }`}
+            >
+                ❌ 이미 존재하는 이메일입니다
+            </div>
+          ))
         } else {
-          console.error(error);
-          alert("서버에서 오류가 발생했습니다.");
+          toast.custom((t) => (
+            <div
+              className={`bg-white text-black dark:bg-slate-700 dark:text-white px-6 py-4 shadow-md rounded-full ${
+                t.visible ? 'animate-enter' : 'animate-leave'
+              }`}
+            >
+                ❌ 서버에서 오류가 발생했습니다.
+            </div>
+          ))
         }
       })
       .finally(() => {

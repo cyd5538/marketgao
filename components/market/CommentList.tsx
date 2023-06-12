@@ -14,6 +14,7 @@ import { CommentDeleteAlert } from "./commentDeleteAlert";
 import { CommentUpate } from "./commentUpdate";
 import { User } from "@prisma/client";
 import baseprofile from "@/public/avatar.png"
+import { toast } from "react-hot-toast";
 
 interface CommentListProps {
   currentUser?: User | null;
@@ -48,6 +49,15 @@ const CommentList: React.FC<CommentListProps> = ({
     mutationFn: commentDelete,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["post"] });
+      toast.custom((t) => (
+        <div
+          className={`bg-white text-black dark:bg-slate-700 dark:text-white px-6 py-4 shadow-md rounded-full ${
+            t.visible ? 'animate-enter' : 'animate-leave'
+          }`}
+        >
+           🗑 댓글 삭제 완료.
+        </div>
+      ));
     },
     onError: () => {
     },

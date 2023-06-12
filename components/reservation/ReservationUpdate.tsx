@@ -30,6 +30,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { CalendarIcon, Check, Loader2 } from "lucide-react" 
+import { toast } from "react-hot-toast";
 
 interface ReservationUpdateProps {
   id : string
@@ -54,7 +55,15 @@ export function ReservationUpdate({id} : ReservationUpdateProps) {
       },
       onSuccess: (data) => {
         queryClient.invalidateQueries(["reservation"])
-        alert("수정 완료")
+        toast.custom((t) => (
+          <div
+            className={`bg-white text-black dark:bg-slate-700 dark:text-white px-6 py-4 shadow-md rounded-full ${
+              t.visible ? 'animate-enter' : 'animate-leave'
+            }`}
+          >
+              ✔ 수정 완료
+          </div>
+        ))
       }
     }
   )
