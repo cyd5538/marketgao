@@ -20,6 +20,8 @@ import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/icons"
 import axios from "axios";
 import { toast } from 'react-hot-toast';
+import Github from '@/components/oauth/Github';
+import Google from '@/components/oauth/Google';
 
 type FormData = {
   name: string;
@@ -96,18 +98,14 @@ export default function IndexPage() {
             계정을 만들려면 아래에 입력사항을 입력해 주세요.
           </CardDescription>
         </CardHeader>
+        <div className="grid gap-4">
+          <div className="grid grid-cols-2 gap-6 mb-4 mt-4 ml-6 mr-6">
+            <Github />
+            <Google />
+          </div>
+        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-4">
-            <div className="grid grid-cols-2 gap-6">
-              <Button variant="outline">
-                <Icons.gitHub className="mr-2 h-4 w-4" />
-                Github
-              </Button>
-              <Button variant="outline">
-                <FcGoogle className="mr-2 h-4 w-4" />
-                Google
-              </Button>
-            </div>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
@@ -118,7 +116,7 @@ export default function IndexPage() {
                 </span>
               </div>
             </div>
-            <div className="grid gap-2">
+            <div className="grid gap-2"> 
               <Label htmlFor="name">name</Label>
               <Input id="name" type="name" placeholder="홀란드" {...register("name", { required: "이름을 입력해주세요" })} />
               {errors.name && (

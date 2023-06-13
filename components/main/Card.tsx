@@ -24,6 +24,7 @@ interface CardsProps {
   mainImage: string
   subImages: string[]
   link: string
+  likedIds : string[]
   comments?: {
     createdAt: string
     id: string
@@ -46,9 +47,9 @@ const Cards: React.FC<CardsProps> = ({
   mainImage,
   subImages,
   link,
+  likedIds,
   comments,
 }) => {
-
   return (
 
     <Card className=" dark:from-zinc-800 dark:to-zinc-800 shadow-md hover:translate-y-[1px] flex flex-col justify-end pt-6 ">
@@ -92,7 +93,7 @@ const Cards: React.FC<CardsProps> = ({
                 <span className='text-sm flex'>
                   <AiTwotoneHeart size={20} fill="#ff2402" />
                   <span>
-                    (0)
+                    {likedIds?.length}
                   </span>
                 </span>
                 <span className='text-sm flex'>

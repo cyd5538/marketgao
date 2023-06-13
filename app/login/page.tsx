@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/icons"
 import { toast } from 'react-hot-toast';
+import Github from '@/components/oauth/Github';
+import Google from '@/components/oauth/Google';
 
 type FormData = {
   email: string;
@@ -71,17 +73,10 @@ export default function IndexPage() {
             이메일과 비밀번호를 입력해 주세요.
           </CardDescription>
         </CardHeader>
-        <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-4">
             <div className="grid grid-cols-2 gap-6">
-              <Button variant="outline">
-                <Icons.gitHub className="mr-2 h-4 w-4" />
-                Github
-              </Button>
-              <Button variant="outline">
-                <FcGoogle className="mr-2 h-4 w-4" />
-                Google
-              </Button>
+              <Github />
+              <Google />
             </div>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -93,6 +88,7 @@ export default function IndexPage() {
                 </span>
               </div>
             </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -116,6 +112,7 @@ export default function IndexPage() {
                 })}
               />
             </div>
+            </form>
           </CardContent>
           <CardFooter>
             <Button 
@@ -126,7 +123,6 @@ export default function IndexPage() {
               {isLoading ? "Loading..." : "Login"}
             </Button>
           </CardFooter>
-        </form>
       </Card>
     </div>
   )

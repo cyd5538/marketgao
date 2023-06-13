@@ -142,6 +142,7 @@ function Home() {
                     link={post.link}
                     menu={post.menu}
                     comments={post.comments}
+                    likedIds={post.likedIds}
                   />
                 ))}
               </>
@@ -164,6 +165,7 @@ function Home() {
                       link={post.link}
                       menu={post.menu}
                       comments={post.comments}
+                      likedIds={post.likedIds}
                     />
                   ))}
                 </>

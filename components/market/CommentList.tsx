@@ -93,24 +93,25 @@ const CommentList: React.FC<CommentListProps> = ({
   return (
     <div ref={commentRef} className="border-b-[1px] pb-2 border-red-400">
       <div className="flex items-center gap-2">
-        <div className="flex flex-col gap-2 items-center justify-center w-[50px]">
-          <div className="text-sm font-bold">
+        <div className="flex flex-col gap-2 items-center justify-center w-[90px]">
+          <div className="text-xs md:text-sm font-bold">
             {name}
           </div>
           <Avatar>
             <AvatarImage src={profileImage ? profileImage : baseprofile.src} alt="@shadcn" />
           </Avatar>
-
         </div>
         <div className="text-sm w-3/4">
           <div>{content}</div>
         </div>
+        <div className="w-1/5">
         {userId === currentUser?.id ?
-          <div className="flex  justify-end items-end gap-2 w-1/5">
+          <div className="flex  justify-end items-end gap-2">
             <CommentDeleteAlert onClick={handleDleteComment} id={id} />
             <CommentUpate content={content} id={id} />
           </div>
           : <></>}
+        </div>
       </div>
       <span className="text-xs w-full flex justify-end text-gray-500">{formatDate(createdAt)} 댓글</span>
     </div>

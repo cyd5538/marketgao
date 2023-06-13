@@ -75,6 +75,7 @@ const CommentForm:React.FC<CommentFormProps> = ({ currentUser, id }) => {
       disabled={isLoading}
       type="submit" 
       variant="secondary"
+      className="w-16 md:w-24 text-xs md:text-sm"
     >
       {!isLoading ? "Add" : "Loading..."}
     </Button>

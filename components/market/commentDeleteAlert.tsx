@@ -23,7 +23,7 @@ export function CommentDeleteAlert({onClick,id} : deleteAlertProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline"><AiOutlineDelete /></Button>
+      <div className="cursor-pointer hover:bg-slate-200 rounded-full"><AiOutlineDelete /></div>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

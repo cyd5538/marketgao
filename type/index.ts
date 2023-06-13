@@ -14,6 +14,7 @@ export type PostType = {
   mainImage: string
   subImages: string[]
   link: string
+  likedIds : string[]
   comments?: {
     createdAt: string
     id: string

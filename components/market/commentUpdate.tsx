@@ -64,7 +64,7 @@ export function CommentUpate({content, id} : CommentUpdateProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline"><AiOutlineEdit /></Button>
+        <div className="cursor-pointer hover:bg-slate-200 rounded-full"><AiOutlineEdit /></div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
