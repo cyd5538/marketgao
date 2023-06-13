@@ -33,7 +33,6 @@ const Mycomment: React.FC<MycommentProps> = ({ currentUser }) => {
     queryFn: () => myPosts(currentUser?.id),
     queryKey: ["post", "comment"],
   })
-  if (error) return <div>error</div>
 
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedComments, setDisplayedComments] = useState([]);
