@@ -36,7 +36,6 @@ const Search = () => {
       setSearchBoolean(false)
     }
   })
-  if (error) return <div>error</div>
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
