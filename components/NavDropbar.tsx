@@ -37,7 +37,7 @@ export function DropdownMenuDemo({ currentUser }: DropDownProps) {
       <DropdownMenuContent className="absolute w-52 left-[-188px]">
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {currentUser?.email ?
+          {currentUser ?
             <>
               <Link href="/comment">
                 <DropdownMenuItem>

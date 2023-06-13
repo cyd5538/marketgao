@@ -45,7 +45,7 @@ export default function IndexPage() {
       .then((callback) => {
         setIsLoading(false);
 
-        if (callback?.ok) {
+        if (callback && callback?.ok) {
           toast.custom((t) => (
             <div
               className={`bg-white text-black dark:bg-slate-700 dark:text-white px-6 py-4 shadow-md rounded-full ${
@@ -56,6 +56,7 @@ export default function IndexPage() {
             </div>
           ));
           router.push("/");
+          router.refresh();
         }
 
         if (callback?.error) {
