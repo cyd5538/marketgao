@@ -24,6 +24,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { User } from "@prisma/client"
 import { Loader2 } from "lucide-react"
+import { toast } from "react-hot-toast"
 
 interface DatePickerProps {
   currentUser? : User | null
@@ -57,7 +58,15 @@ export function DatePicker({postId, currentUser, description, title, mainImage} 
       },
       onSuccess: (data) => {
         queryClient.invalidateQueries(["post"])
-        alert("추가 성공")
+        toast.custom((t) => (
+          <div
+            className={`bg-white text-black dark:bg-slate-700 dark:text-white px-6 py-4 shadow-md rounded-full ${
+              t.visible ? 'animate-enter' : 'animate-leave'
+            }`}
+          >
+              ✔ 추가 완료
+          </div>
+        ))
       },
     }
   )

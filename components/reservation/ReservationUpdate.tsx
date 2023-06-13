@@ -29,7 +29,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { CalendarIcon, Check, Loader2 } from "lucide-react" 
+import { CalendarCheck2, Check, Loader2 } from "lucide-react" 
 import { toast } from "react-hot-toast";
 
 interface ReservationUpdateProps {
@@ -96,7 +96,7 @@ export function ReservationUpdate({id} : ReservationUpdateProps) {
                 !date && "text-muted-foreground"
               )}
             >
-              <CalendarIcon className="mr-2 h-4 w-4" />
+              <CalendarCheck2 className="mr-2 h-4 w-4" />
               {date ? format(date, "PPP") : <span>방문할 날짜 선택</span>}
             </Button>
           </PopoverTrigger>
