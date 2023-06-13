@@ -10,6 +10,7 @@ import MarketYoutube from "@/components/market/MarketYoutube";
 import KakaoMap from "@/components/KaKaoMap";
 import Comment from "@/components/market/Comment";
 import { User } from "@prisma/client";
+import Loading from "../ui/Loading";
 
 
 interface MarketProps {
@@ -30,7 +31,7 @@ export default function Market({ currentUser }: MarketProps) {
     queryFn: () => Posts(params?.slug),
   })
   if (error) return <div>error</div>
-  if (isLoading) return <div></div>
+  if (isLoading) return <Loading />
 
   return (
     <div>

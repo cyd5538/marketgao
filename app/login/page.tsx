@@ -73,11 +73,14 @@ export default function IndexPage() {
             이메일과 비밀번호를 입력해 주세요.
           </CardDescription>
         </CardHeader>
+        <div className="grid gap-4">
+          <div className="grid grid-cols-2 gap-6 mb-4 mt-4 ml-6 mr-6">
+            <Github />
+            <Google />
+          </div>
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-4">
-            <div className="grid grid-cols-2 gap-6">
-              <Github />
-              <Google />
-            </div>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
@@ -88,7 +91,7 @@ export default function IndexPage() {
                 </span>
               </div>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -112,7 +115,7 @@ export default function IndexPage() {
                 })}
               />
             </div>
-            </form>
+            
           </CardContent>
           <CardFooter>
             <Button 
@@ -123,6 +126,7 @@ export default function IndexPage() {
               {isLoading ? "Loading..." : "Login"}
             </Button>
           </CardFooter>
+          </form>
       </Card>
     </div>
   )

@@ -55,11 +55,6 @@ export function DropdownMenuDemo({ currentUser }: DropDownProps) {
                 <LogOut className="mr-2 h-4 w-4" />
                 <span className="text-md">로그아웃</span>
               </DropdownMenuItem>
-              <Link href="/post">
-                <DropdownMenuItem className="cursor-pointer">
-                  <span className="text-md">POST</span>
-                </DropdownMenuItem>
-              </Link>
             </> :
             <>
               <Link href="/login">
