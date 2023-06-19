@@ -16,7 +16,6 @@ import Toasters from "@/components/Toaser"
 interface RootLayoutProps {
   children: React.ReactNode
 }
-
 export default async function RootLayout({ children }: RootLayoutProps) {
 
   const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_API_KEY}&autoload=false`;
